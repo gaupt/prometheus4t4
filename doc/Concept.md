@@ -1,48 +1,87 @@
-## Вступ
-У цьому порівняльному аналізі ми розглянемо три інструменти для розгортання локальних Kubernetes кластерів: minikube, kind та k3d. Кожен інструмент має свої особливості та переваги, які ми проаналізуємо для стартапу "AsciiArtify".
+## Intro
+This page describe few tool for local k8s cluster: minikube, kind, k3d
 
-## Характеристики
-Minikube:
-Підтримувані ОС та архітектури: Підтримується на Windows, macOS та Linux.
-Автоматизація: Простий у використанні та підтримує автоматичний режим.
-Додаткові функції: Підтримує використання різних додатків для моніторингу та керування Kubernetes кластером.
-Kind:
-Підтримувані ОС та архітектури: Підтримується на Windows, macOS та Linux.
-Автоматизація: Простий у використанні та може бути автоматизований за допомогою сценаріїв оболонки.
-Додаткові функції: Має гнучкі налаштування для встановлення додаткових компонентів Kubernetes.
-K3d:
-Підтримувані ОС та архітектури: Підтримується на Windows, macOS та Linux.
-Автоматизація: Має вбудовані інструменти для автоматизації створення та управління кластером.
-Додаткові функції: Швидко створюється та може інтегруватися з іншими інструментами Docker.
-Переваги та недоліки
-Minikube:
-Переваги: Простий у використанні, має розширені можливості для моніторингу та керування Kubernetes кластером.
-Недоліки: Може бути обмежений у можливостях масштабування для складних застосунків.
-Kind:
-Переваги: Простий у використанні, гнучкий та може бути легко автоматизований.
-Недоліки: Може бути менш стабільним для великих кластерів.
-K3d:
-Переваги: Швидкий у використанні, має вбудовані інструменти для автоматизації та гарно інтегрується з Docker.
-Недоліки: Може бути менш стабільним для великих кластерів та не має таких розширених можливостей, як Minikube.
-## Демонстрація
-Вибраний інструмент: K3d
-Давайте продемонструємо створення простого Kubernetes кластеру за допомогою k3d та розгортання застосунку "Hello World":
+## Characteristic
 
-Встановіть k3d на свій комп'ютер.
-Виконайте наступну команду для створення кластеру:
-lua
-Copy code
-k3d cluster create mycluster
-Перевірте, що кластер успішно створений за допомогою команди:
-Copy code
-kubectl cluster-info
-Розгорніть застосунок "Hello World" за допомогою kubectl:
-lua
-Copy code
-kubectl create deployment hello-world --image=gcr.io/google-samples/hello-app:1.0
-Перевірте, що застосунок успішно розгорнуто:
-arduino
-Copy code
-kubectl get pods
-## Висновки
-Після аналізу та демонстрації трьох інструментів для розгортання Kubernetes кластерів в локальному середовищі, ми рекомендуємо використовувати k3d для стартапу "AsciiArtify". K3d є швидким, легким у використанні та добре інтегрується з Docker, що робить його ідеальним вибором для розгортання та тестування Kubernetes кластерів локально.
+| Item          | minikube                  |  kind                 | k3d                   |
+| --------      | -------                   | --------              | ---                   |
+| os            | linux, macos, windows     | linux, macos, windows | linux, macos, windows |
+| arch          | x86-64, arm64             | x86-64, arm64         | x86-64, arm64         |
+| engine        | VM, docker, podman, etc   | docker, podman        |   docker              |
+| cluster setup | single/multi(custom) node | single/multi node     | single/multi node     |
+
+
+## Pros/Cons
+<table>
+    <tr>
+        <th></th>
+        <th>minikube</th>
+        <th>kind</th>
+        <th>k3d</th>
+    </tr>
+    <tr>
+        <th>Pros</th>
+        <td>
+            <ul>
+                <li>Easy to setup</li>
+                <li>Use different env(VM, docker)</li>
+                <li>Integrated Dashboard</li>
+                <li>MultiOS Support</li>
+                <li>Many Configuration Options</li>
+                <li>MultiNode Setup</li>
+                <li>Support Plugins<li>
+                <li>Good documentation</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Easy to use</li>
+                <li>Simple setup for local development</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Easy to use</li>
+                <li>Lightweight</li>
+                <li>Has many configuration options</li>
+                <li>Can be used for small compiters like RPI</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>Cons</th>
+        <td>
+            <ul>
+                <li>Perfomance contrains</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Lack of documentation</li>
+                <li>Use only docker</li>
+                <li>Does not have plugins like dashboard</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Lack of documentation</li>
+                <li>Does not have plugins like dashboard from the beggining</li>
+                <li>Configuration might be not simple</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+## Conclusion
+Since `minikube` is vert matchure and has a lot of features, for local development and lightweight setup i would recomend to take `k3d` since it is k8s version for embedded devices which making it suiteble for low resources.
+
+## Minikube Live Demo
+![MinikubeDemo](minikube-demo.gif)
+
+
+## Kind Live Demo
+![KindDemo](kind-demo.gif)
+
+## K3D Live Demo
+![K3DDemo](k3d-demo.gif)
